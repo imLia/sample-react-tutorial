@@ -11,5 +11,5 @@ Checkout this repo, install dependencies, then start the gulp process with the f
     > git clone git@github.com:imLia/sample-react-tutorial.git
     > cd sample-react-tutorial
     > npm install
-    > npm start
+    > npm run server
 Open http://localhost:3000/ in your browser
