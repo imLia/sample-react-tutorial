@@ -11,6 +11,7 @@ export default class TodoList extends Component{
     this.onSave = this.onSave.bind(this);
     this.editMode = this.editMode.bind(this);
     this.saveMode = this.saveMode.bind(this);
+    this.onRemove = this.onRemove.bind(this);
   }
   onEdit(){
     this.setState({
@@ -18,16 +19,21 @@ export default class TodoList extends Component{
     });
   }
   onSave(){
+    this.props.updateItemInList(this.refs.newVal.value, this.props.index);
     this.setState({
       editingMode: false
     });
+  }
+  onRemove(){
+    this.props.removeItem(this.props.index);
   }
   editMode(){
     return(
       <ul className="list-group">
           <li className="list-group-item">
-            {this.props.children}
-            <button type="button" onClick={this.onEdit}>Edit</button>
+            <input type="checkbox"/>
+            <span style={{margin:"0 0% 0 2%"}} onClick={this.onEdit}>{this.props.children}</span>
+            <button type="button" onClick={this.onRemove}>Remove</button>
           </li>
       </ul>
     );
@@ -36,7 +42,7 @@ export default class TodoList extends Component{
     return(
       <ul className="list-group">
           <li className="list-group-item">
-            <input type="text" defaultValue={this.props.children} style={{marginRight:"50%"}}/>
+            <input type="text" ref="newVal" defaultValue={this.props.children} style={{margin:"0 50% 0 2%"}}/>
             <button type="button" onClick={this.onSave}>Save</button>
           </li>
       </ul>
