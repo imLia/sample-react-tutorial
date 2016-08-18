@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
-import UserInfo from './UserInfo';
 import { Link } from 'react-router';
+import TodoAddBox from './TodoAddBox';
+import TodoList from './TodoList';
+import TodoButtons from './TodoButtons';
 
 export default class App extends Component{
-  render(){
-    return(
-      <div className="row">
-        <div className="col-md-6 col-md-offset-3 jumbotron text-center todoContainer">
-          <h1>Todo List</h1>
-          <input type="text" placeholder="Enter Task.." />
-          <button type="button" className="btn btn-success">Add</button>
-        </div>
+  constructor(props){
+    super(props);
+    this.state = {
+      item: '',
+      todoList: ['item1', 'item2']
+    }
+    this.onTextChange = this.onTextChange.bind(this);
+    this.addButton = this.addButton.bind(this);
+  }
 
+  onTextChange(e){
+    this.setState({
+      item: e.target.value
+    })
+    // console.log(this.state.item);
+  }
+
+  addButton(){
+    let todoList = this.state.todoList;
+    todoList.push(this.state.item);
+    this.setState({
+      todoList: todoList,
+      item: ''
+    })
+    // console.log('Clicked!');
+    console.log(this.state.todoList);
+  }
+  render(){
+    // console.log(this.state.todoList);
+    return(
+      <div className="row" style={{marginTop: '50px'}}>
+        <TodoAddBox onTextChange={this.onTextChange} addButton={this.addButton} item={this.state.item}/>
         <div className="col-md-6 col-md-offset-3 jumbotron  listContainer">
-          <ul className="list-group">
-            <li className="list-group-item"><input type="checkbox"  /> HTML Template</li>
-            <li className="list-group-item"><input type="checkbox" /> Convert to React</li>
-            <li className="list-group-item"><input type="checkbox" /> Stateful and Stateless components</li>
-            <li className="list-group-item"><input type="checkbox" /> Routing components</li>
-            <li className="list-group-item"><input type="checkbox" /> Push to Github</li>
-          </ul>
-          <div className="text-center">
-            <button type="button">All</button>
-            <button type="button">Active</button>
-            <button type="button">Completed</button>
-          </div>
+          <TodoList todoList={this.state.todoList}/>
+          <TodoButtons />
         </div>
       </div>
     )
