@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import TodoAddBox from './TodoAddBox';
 import TodoList from './TodoList';
 import Header from './Header';
+import Completed from './Completed';
 
 export default class App extends Component{
   constructor(props){
@@ -12,8 +13,7 @@ export default class App extends Component{
       todoList: ['item1', 'item2'],
       editingMode: false,
       checkedItem: false,
-      compeleted: ' - Completed',
-      active: '- Active'
+      completedItems: ['item3']
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
@@ -28,6 +28,7 @@ export default class App extends Component{
     })
     // console.log(this.state.item);
   }
+
 
   addButton(){
     let todoListArr = this.state.todoList;
@@ -56,20 +57,33 @@ export default class App extends Component{
   }
 
   completedItem(i){
-    let todoListArr = this.state.todoList;
-    todoListArr[i] += "- Completed";
+    let todoListArr = this.state.todoList.splice(i, 1);
+    let completedItems = this.state.completedItems;
+    completedItems.push(todoListArr);
     this.setState({
-      todoList: todoListArr
+      completedItems: completedItems
     })
-    console.log("new value: " + this.state.todoList);
+    // todoListArr[i] += " - Completed";
+    // this.setState({
+    //   todoList: todoListArr
+    // })
+    // console.log("new value: " + this.state.todoList);
   }
 
   updateItem(newValue, i){
     let todoListArr = this.state.todoList;
-    todoListArr[i] = newValue;
-    this.setState({
-      todoList: todoListArr
-    })
+    console.log(newValue);
+    if(!newValue)
+    {
+      alert('Please fill the blank');
+    }
+    else
+    {
+        todoListArr[i] = newValue;
+        this.setState({
+        todoList: todoListArr
+      });
+    }
   }
   eachItemInList(item, i){
     return(
@@ -87,7 +101,8 @@ export default class App extends Component{
         </div>
         <div className="row">
         <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
-          <div className="col-md-6">
+          <div className="col-md-4">
+          <label>Active</label>
           <ul className="list-group">
               <li className="list-group-item">
               <table className="table table-bordered table-striped">
@@ -103,10 +118,24 @@ export default class App extends Component{
                     </TodoList>
                   ))}
               </table>
-
-
               </li>
           </ul>
+          </div>
+
+          <div className="col-md-4">
+            <label>Task Completed</label>
+            <ul className="list-group">
+                <li className="list-group-item">
+                <table className="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th className="text-center">Task</th>
+                  </tr>
+                  </thead>
+                    <Completed completedItems={this.state.completedItems}/>
+                </table>
+                </li>
+            </ul>
           </div>
         </div>
       </div>

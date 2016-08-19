@@ -39,13 +39,13 @@ export default class TodoList extends Component{
   }
   editMode(){
     return(
-                <tbody>
-                  <tr>
-                    <th className="text-center"><span onClick={this.onEdit}>{this.props.children}</span></th>
-                    <th className="text-center"><button type="button" className="btn-sm btn-danger" onClick={this.onRemove}>Remove</button> ||
-                    <button type="button" className="btn-sm btn-primary" onClick={this.completed}>Complete</button></th>
-                  </tr>
-                </tbody>
+        <tbody>
+          <tr>
+            <th className="text-center"><span onClick={this.onEdit}>{this.props.children}</span></th>
+            <th className="text-center"><button type="button" className="btn-sm btn-danger" onClick={this.onRemove}>Remove</button> ||
+            <button type="button" className="btn-sm btn-primary" onClick={this.completed}>Complete</button></th>
+          </tr>
+        </tbody>
     );
   }
   saveMode(){
