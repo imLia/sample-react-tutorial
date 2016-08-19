@@ -11,9 +11,7 @@ export default class App extends Component{
       item: '',
       todoList: ['item1', 'item2'],
       editingMode: false,
-      checkedItem: false,
-      compeleted: ' - Completed',
-      active: '- Active'
+      checkedItem: false
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
