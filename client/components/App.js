@@ -48,8 +48,9 @@ export default class App extends Component{
   }
 
   completedItem(i){
+    let labelspan = <span>"- Completed"</span>;
     let todoListArr = this.state.todoList;
-    todoListArr[i] += " - Completed";
+    todoListArr[i] += labelspan;
     this.setState({
       todoList: todoListArr
     })
@@ -80,11 +81,25 @@ export default class App extends Component{
         <div className="row">
         <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
           <div className="col-md-6">
-              {this.state.todoList.map((item, i) => (
-                <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
-                  {item}
-                </TodoList>
-              ))}
+          <ul className="list-group">
+              <li className="list-group-item">
+              <table className="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th className="text-center">Task</th>
+                  <th className="text-center">Action</th>
+                </tr>
+                </thead>
+                  {this.state.todoList.map((item, i) => (
+                    <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
+                      {item}
+                    </TodoList>
+                  ))}
+              </table>
+
+
+              </li>
+          </ul>
           </div>
         </div>
       </div>
