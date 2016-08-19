@@ -12,6 +12,7 @@ export default class TodoList extends Component{
     this.editMode = this.editMode.bind(this);
     this.saveMode = this.saveMode.bind(this);
     this.onRemove = this.onRemove.bind(this);
+    this.completed = this.completed.bind(this);
   }
   onEdit(){
     this.setState({
@@ -27,13 +28,16 @@ export default class TodoList extends Component{
   onRemove(){
     this.props.removeItem(this.props.index);
   }
+  completed(){
+    this.props.completedItem(this.props.index);
+  }
   editMode(){
     return(
       <ul className="list-group">
-          <li className="list-group-item">
-            <input type="checkbox"/>
-            <span style={{margin:"0 0% 0 2%"}} onClick={this.onEdit}>{this.props.children}</span>
+          <li className="list-group-item"> *
+            <span style={{margin:"0 20% 0 2%"}} onClick={this.onEdit}>{this.props.children}</span>
             <button type="button" onClick={this.onRemove}>Remove</button>
+            <button type="button" onClick={this.completed}>Complete</button>
           </li>
       </ul>
     );
