@@ -72,10 +72,18 @@ export default class App extends Component{
 
   updateItem(newValue, i){
     let todoListArr = this.state.todoList;
-    todoListArr[i] = newValue;
-    this.setState({
-      todoList: todoListArr
-    })
+    console.log(newValue);
+    if(!newValue)
+    {
+      alert('Please fill the blank');
+    }
+    else
+    {
+        todoListArr[i] = newValue;
+        this.setState({
+        todoList: todoListArr
+      });
+    }
   }
   eachItemInList(item, i){
     return(
