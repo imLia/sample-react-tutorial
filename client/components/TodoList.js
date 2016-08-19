@@ -9,6 +9,7 @@ export default class TodoList extends Component{
     }
     this.onEdit = this.onEdit.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.onCancel = this.onCancel.bind(this);
     this.editMode = this.editMode.bind(this);
     this.saveMode = this.saveMode.bind(this);
     this.onRemove = this.onRemove.bind(this);
@@ -21,6 +22,11 @@ export default class TodoList extends Component{
   }
   onSave(){
     this.props.updateItemInList(this.refs.newVal.value, this.props.index);
+    this.setState({
+      editingMode: false
+    });
+  }
+  onCancel(){
     this.setState({
       editingMode: false
     });
@@ -47,7 +53,7 @@ export default class TodoList extends Component{
       <tbody>
         <tr>
           <th className="text-center"><input type="text" className="form-control" ref="newVal" defaultValue={this.props.children} style={{margin:"0 50% 0 2%"}}/></th>
-          <th className="text-center"><button className="btn-sm btn-success" type="button" onClick={this.onSave}>Save</button>||<button className="btn-sm btn-danger" type="button">Cancel</button></th>
+          <th className="text-center"><button className="btn-sm btn-success" type="button" onClick={this.onSave}>Save</button>||<button className="btn-sm btn-danger" type="button" onClick={this.onCancel}>Cancel</button></th>
         </tr>
       </tbody>
     )
