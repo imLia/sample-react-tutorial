@@ -33,23 +33,23 @@ export default class TodoList extends Component{
   }
   editMode(){
     return(
-      <ul className="list-group">
-          <li className="list-group-item"> *
-            <span style={{margin:"0 20% 0 2%"}} onClick={this.onEdit}>{this.props.children}</span>
-            <button type="button" className="btn-sm btn-danger" onClick={this.onRemove}>Remove</button>
-            <button type="button" className="btn-sm btn-primary" onClick={this.completed}>Complete</button>
-          </li>
-      </ul>
+        <tbody>
+          <tr>
+            <th className="text-center"><span onClick={this.onEdit}>{this.props.children}</span></th>
+            <th className="text-center"><button type="button" className="btn-sm btn-danger" onClick={this.onRemove}>Remove</button> ||
+            <button type="button" className="btn-sm btn-primary" onClick={this.completed}>Complete</button></th>
+          </tr>
+        </tbody>
     );
   }
   saveMode(){
     return(
-      <ul className="list-group">
-          <li className="list-group-item">
-            <input type="text" ref="newVal" defaultValue={this.props.children} style={{margin:"0 50% 0 2%"}}/>
-            <button type="button" onClick={this.onSave}>Save</button>
-          </li>
-      </ul>
+      <tbody>
+        <tr>
+          <th className="text-center"><input type="text" className="form-control" ref="newVal" defaultValue={this.props.children} style={{margin:"0 50% 0 2%"}}/></th>
+          <th className="text-center"><button className="btn-sm btn-success" type="button" onClick={this.onSave}>Save</button>||<button className="btn-sm btn-danger" type="button">Cancel</button></th>
+        </tr>
+      </tbody>
     )
   }
   render(){

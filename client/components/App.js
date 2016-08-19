@@ -13,7 +13,7 @@ export default class App extends Component{
       todoList: ['item1', 'item2'],
       editingMode: false,
       checkedItem: false,
-      completedItems: ['Hello']
+      completedItems: ['item3']
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
@@ -85,17 +85,42 @@ export default class App extends Component{
         </div>
         <div className="row">
         <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
-          <div className="col-md-6">
-              Active
-              {this.state.todoList.map((item, i) => (
-                <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
-                  {item}
-                </TodoList>
-              ))}
+          <div className="col-md-4">
+          <label>Active</label>
+          <ul className="list-group">
+              <li className="list-group-item">
+              <table className="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th className="text-center">Task</th>
+                  <th className="text-center">Action</th>
+                </tr>
+                </thead>
+                  {this.state.todoList.map((item, i) => (
+                    <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
+                      {item}
+                    </TodoList>
+                  ))}
+              </table>
+              </li>
+          </ul>
           </div>
-        </div>
-        <div className="row">
-          <Completed completedItems={this.state.completedItems}/>
+
+          <div className="col-md-4">
+            <label>Task Completed</label>
+            <ul className="list-group">
+                <li className="list-group-item">
+                <table className="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th className="text-center">Task</th>
+                  </tr>
+                  </thead>
+                    <Completed completedItems={this.state.completedItems}/>
+                </table>
+                </li>
+            </ul>
+          </div>
         </div>
       </div>
     )
