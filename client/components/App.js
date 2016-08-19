@@ -31,11 +31,19 @@ export default class App extends Component{
 
   addButton(){
     let todoListArr = this.state.todoList;
-    todoListArr.push(this.state.item);
-    this.setState({
-      todoList: todoListArr,
-      item: ''
-    })
+    let additem = this.state.item;
+    if(!additem)
+    {
+      alert('Please fill the text field');
+    }
+    else {
+      todoListArr.push(additem);
+      this.setState({
+        todoList: todoListArr,
+        item: ''
+      })
+    }
+
     // console.log('Clicked!');
     console.log(this.state.todoList);
   }
@@ -48,9 +56,8 @@ export default class App extends Component{
   }
 
   completedItem(i){
-    let labelspan = <span>"- Completed"</span>;
     let todoListArr = this.state.todoList;
-    todoListArr[i] += labelspan;
+    todoListArr[i] += "- Completed";
     this.setState({
       todoList: todoListArr
     })
