@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import TodoAddBox from './TodoAddBox';
 import TodoList from './TodoList';
-import TodoButtons from './TodoButtons';
+import Header from './Header';
 
 export default class App extends Component{
   constructor(props){
@@ -12,7 +12,8 @@ export default class App extends Component{
       todoList: ['item1', 'item2'],
       editingMode: false,
       checkedItem: false,
-      compeletedTask: []
+      compeleted: ' - Completed',
+      active: '- Active'
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
@@ -72,15 +73,19 @@ export default class App extends Component{
   render(){
     // console.log(this.state.todoList);
     return(
-      <div className="row" style={{marginTop: '50px'}}>
-        <TodoAddBox onTextChange={this.onTextChange} addButton={this.addButton} item={this.state.item}/>
-        <div className="col-md-6 col-md-offset-3 jumbotron  listContainer">
-          {this.state.todoList.map((item, i) => (
-            <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
-              {item}
-            </TodoList>
-          ))}
-          <TodoButtons/>
+      <div className="container">
+        <div className="row">
+          <Header />
+        </div>
+        <div className="row">
+        <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
+          <div className="col-md-6">
+              {this.state.todoList.map((item, i) => (
+                <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
+                  {item}
+                </TodoList>
+              ))}
+          </div>
         </div>
       </div>
     )

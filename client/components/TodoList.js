@@ -36,8 +36,8 @@ export default class TodoList extends Component{
       <ul className="list-group">
           <li className="list-group-item"> *
             <span style={{margin:"0 20% 0 2%"}} onClick={this.onEdit}>{this.props.children}</span>
-            <button type="button" onClick={this.onRemove}>Remove</button>
-            <button type="button" onClick={this.completed}>Complete</button>
+            <button type="button" className="btn-sm btn-danger" onClick={this.onRemove}>Remove</button>
+            <button type="button" className="btn-sm btn-primary" onClick={this.completed}>Complete</button>
           </li>
       </ul>
     );
