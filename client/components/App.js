@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import TodoAddBox from './TodoAddBox';
 import TodoList from './TodoList';
 import Header from './Header';
+import Completed from './Completed';
 
 export default class App extends Component{
   constructor(props){
@@ -12,8 +13,7 @@ export default class App extends Component{
       todoList: ['item1', 'item2'],
       editingMode: false,
       checkedItem: false,
-      compeleted: ' - Completed',
-      active: '- Active'
+      completedItems: ['Hello']
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
@@ -28,6 +28,7 @@ export default class App extends Component{
     })
     // console.log(this.state.item);
   }
+
 
   addButton(){
     let todoListArr = this.state.todoList;
@@ -48,12 +49,17 @@ export default class App extends Component{
   }
 
   completedItem(i){
-    let todoListArr = this.state.todoList;
-    todoListArr[i] += " - Completed";
+    let todoListArr = this.state.todoList.splice(i, 1);
+    let completedItems = this.state.completedItems;
+    completedItems.push(todoListArr);
     this.setState({
-      todoList: todoListArr
+      completedItems: completedItems
     })
-    console.log("new value: " + this.state.todoList);
+    // todoListArr[i] += " - Completed";
+    // this.setState({
+    //   todoList: todoListArr
+    // })
+    // console.log("new value: " + this.state.todoList);
   }
 
   updateItem(newValue, i){
@@ -80,12 +86,16 @@ export default class App extends Component{
         <div className="row">
         <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
           <div className="col-md-6">
+              Active
               {this.state.todoList.map((item, i) => (
                 <TodoList key={i} index={i} completedItem={this.completedItem} states={this.state} updateItemInList={this.updateItem} removeItem = {this.removeItemInList}>
                   {item}
                 </TodoList>
               ))}
           </div>
+        </div>
+        <div className="row">
+          <Completed completedItems={this.state.completedItems}/>
         </div>
       </div>
     )
