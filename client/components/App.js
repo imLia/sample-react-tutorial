@@ -5,8 +5,8 @@ import TodoList from './TodoList';
 import Header from './Header';
 import Completed from './Completed';
 
-var items = JSON.parse(localStorage.getItem('items')) || ['item1', 'item2'];
-var itemsCompeleted = JSON.parse(localStorage.getItem('itemsCompeleted')) || ['item3'];
+var items = JSON.parse(sessionStorage.getItem('items')) || ['item1', 'item2'];
+var itemsCompeleted = JSON.parse(sessionStorage.getItem('itemsCompeleted')) || ['item3'];
 export default class App extends Component{
   constructor(props){
     super(props);
@@ -40,7 +40,7 @@ export default class App extends Component{
     }
     else{
         todoListArr.push(this.state.item);
-        localStorage.setItem('items', JSON.stringify(todoListArr));
+        sessionStorage.setItem('items', JSON.stringify(todoListArr));
         this.setState({
           todoList: todoListArr,
           item: ''
@@ -62,7 +62,8 @@ export default class App extends Component{
     let todoListArr = this.state.todoList.splice(i, 1);
     let completedItems = this.state.completedItems;
     completedItems.push(todoListArr);
-    localStorage.setItem('itemsCompeleted', JSON.stringify(completedItems));
+    sessionStorage.setItem('itemsCompeleted', JSON.stringify(completedItems));
+    sessionStorage.setItem('items', JSON.stringify(this.state.todoList));
     this.setState({
       completedItems: completedItems
     })
