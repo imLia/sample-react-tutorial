@@ -5,15 +5,17 @@ import TodoList from './TodoList';
 import Header from './Header';
 import Completed from './Completed';
 
+var items = JSON.parse(localStorage.getItem('items')) || ['item1', 'item2'];
+var itemsCompeleted = JSON.parse(localStorage.getItem('itemsCompeleted')) || ['item3'];
 export default class App extends Component{
   constructor(props){
     super(props);
     this.state = {
       item: '',
-      todoList: ['item1', 'item2'],
+      todoList: items,
       editingMode: false,
       checkedItem: false,
-      completedItems: ['item3']
+      completedItems: itemsCompeleted
     }
     this.onTextChange = this.onTextChange.bind(this);
     this.addButton = this.addButton.bind(this);
@@ -32,22 +34,22 @@ export default class App extends Component{
 
   addButton(){
     let todoListArr = this.state.todoList;
-    let additem = this.state.item;
-    if(!additem)
-    {
-      alert('Please fill the text field');
+    let addItem = this.state.item;
+    if(!addItem){
+      alert("Please fill the blank");
     }
-    else {
-      todoListArr.push(additem);
-      this.setState({
-        todoList: todoListArr,
-        item: ''
-      })
+    else{
+        todoListArr.push(this.state.item);
+        localStorage.setItem('items', JSON.stringify(todoListArr));
+        this.setState({
+          todoList: todoListArr,
+          item: ''
+        })
     }
-
     // console.log('Clicked!');
     console.log(this.state.todoList);
   }
+
   removeItemInList(i){
     let todoListArr = this.state.todoList;
     todoListArr.splice(i, 1);
@@ -60,6 +62,7 @@ export default class App extends Component{
     let todoListArr = this.state.todoList.splice(i, 1);
     let completedItems = this.state.completedItems;
     completedItems.push(todoListArr);
+    localStorage.setItem('itemsCompeleted', JSON.stringify(completedItems));
     this.setState({
       completedItems: completedItems
     })
@@ -100,7 +103,7 @@ export default class App extends Component{
           <Header />
         </div>
         <div className="row">
-        <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange}/>
+        <TodoAddBox addButton={this.addButton} onTextChange={this.onTextChange} item={this.state.item}/>
           <div className="col-md-4">
           <label>Active</label>
           <ul className="list-group">
